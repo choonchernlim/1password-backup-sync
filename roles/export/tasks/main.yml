@@ -1,0 +1,26 @@
+---
+- name: Display info
+  debug:
+    msg: |
+      Pushing latest backup file from ...
+
+      Source Host : {{ hostvars['localhost'].ansible_hostname.lower() }}
+      Source Dir  : {{ hostvars["localhost"].backup_dir }}
+      Source File : {{ hostvars["localhost"].latest_backup_filename }}
+
+      ... to ...
+
+      Target Host : {{ ansible_hostname.lower() }}
+      Target Dir  : {{ backup_dir }}
+
+- name: Push latest backup from localhost to remote host
+  synchronize:
+    src: '{{ hostvars["localhost"].backup_dir }}/{{ hostvars["localhost"].latest_backup_filename }}'
+
+    # If the destination path has space(s), Ansible will show "ok" with no file copied. Hence, escape the space(s).
+    # It doesn't impact source path.
+    dest: '{{ backup_dir | replace(" ","\ ") }}'
+    mode: push
+    private_key: '{{ ansible_ssh_private_key_file }}'
+    checksum: yes
+  delegate_to: localhost
