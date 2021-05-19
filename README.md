@@ -5,11 +5,7 @@ Syncs 1Password's backup files to multiple Macs. This applies to 1Password bough
 # Getting Started (One Time Setup)
 
 **IMPORTANT: Repeat the following steps on each host.**
-
-- Enable remote login and grant yourself the access to this service.
-
-![Remote login on Mac](docs/remote-login.png)
-
+ 
 - Ensure SSH keypair exists (ex: `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`). If missing, run create one:
 
 ```shell
@@ -35,6 +31,10 @@ chmod 600 ~/.ssh/authorized_keys
 192.168.1.100  donkeykong # remote host 1
 192.168.1.200  supermario # remote host 2
 ```
+
+- Enable remote login and grant yourself the access to this service.
+
+![Remote login on Mac](docs/remote-login.png)
 
 - Test SSH connection to remote host to ensure they work.
 

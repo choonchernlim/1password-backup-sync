@@ -10,6 +10,3 @@
   roles:
     - backup_info
     - export
-
-# TODO add this to prevent SSH host verificaqtion prompt
-# https://superuser.com/questions/125324/how-can-i-avoid-sshs-host-verification-for-known-hosts

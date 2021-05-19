@@ -23,4 +23,5 @@
 Session.vim
 .netrwhist
 
+# 1password-backup-sync files
 inventory.yml
