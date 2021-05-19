@@ -1,0 +1,15 @@
+---
+- name: Get 1Password info from localhost
+  hosts: localhost
+  roles:
+    - backup_info
+
+- name: Push latest backup file from localhost to all remote hosts
+  # All remote hosts except localhost and its resolved hostname
+  hosts: all:!localhost:!{{ hostvars['localhost'].ansible_hostname.lower() }}
+  roles:
+    - backup_info
+    - export
+
+# TODO add this to prevent SSH host verificaqtion prompt
+# https://superuser.com/questions/125324/how-can-i-avoid-sshs-host-verification-for-known-hosts
