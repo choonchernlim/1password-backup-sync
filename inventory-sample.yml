@@ -1,3 +1,4 @@
+---
 # 2021-05-18: `ansible_ssh_user` needs to be defined for `synchronize` module to work.
 # See https://github.com/ansible-collections/ansible.posix/issues/60
 

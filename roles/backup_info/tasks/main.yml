@@ -1,28 +1,28 @@
 ---
 - name: Find base directory fragment of 1Password's backup location
-  find:
+  ansible.builtin.find:
     paths: '{{ ansible_user_dir }}/Library/Group Containers'
     file_type: directory
     patterns: '*.com.agilebits'
   register: base_backup_dir
 
 - name: Set backup dir
-  set_fact:
+  ansible.builtin.set_fact:
     backup_dir: '{{ base_backup_dir.files[0].path }}/Library/Application Support/1Password/Backups'
 
 - name: Find all backup files
-  find:
+  ansible.builtin.find:
     paths: '{{ backup_dir }}'
     file_type: file
   register: backup_files
 
 - name: Set variables
-  set_fact:
+  ansible.builtin.set_fact:
     latest_backup_filename: '{{ (backup_files.files | sort(attribute="mtime") | last).path | basename }}'
     total_backups: '{{ backup_files.files | length }}'
 
 - name: Display 1Password info
-  debug:
+  ansible.builtin.debug:
     msg: |
       Backup Dir             : {{ backup_dir }}
       Total Backups          : {{ total_backups }}
