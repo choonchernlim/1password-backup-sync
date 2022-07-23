@@ -15,15 +15,12 @@
 
 - name: Push latest backup from localhost to remote host
   synchronize:
-    # spaces must be escaped
-    src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) | replace(" ", "\ ") }}'
-
-    # value must be wrapped with quotes
-    dest: '"{{ backup_dir }}"'
-    # spaces must be escaped and value must be wrapped with quotes
-    # dest: '"{{ backup_dir | replace(" ", "\ ") }}"'
-
+    src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) }}'
+    dest: '{{ backup_dir }}'
     mode: push
     private_key: '{{ ansible_ssh_private_key_file }}'
     checksum: yes
+    rsync_path: /usr/local/bin/rsync
+    rsync_opts:
+      - "--protect-args"
   delegate_to: localhost
