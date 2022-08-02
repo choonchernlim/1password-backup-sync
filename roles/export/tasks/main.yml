@@ -13,14 +13,42 @@
       Target Host : {{ ansible_hostname.lower() }}
       Target Dir  : {{ backup_dir }}
 
-- name: Push latest backup from localhost to remote host
-  ansible.posix.synchronize:
-    src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) }}'
-    dest: '{{ backup_dir }}'
-    mode: push
-    private_key: '{{ ansible_ssh_private_key_file }}'
-    checksum: true
-    rsync_path: /usr/local/bin/rsync
-    rsync_opts:
-      - "--protect-args"
+# -----------------------------------------------------------------------------
+#  `ansible.posix.synchronize` doesn't wrap source/path with quotes in
+#  MacOS Monterey, but it works in MacOS BigSur. So, explicitly run the rsync
+#  command for stability.
+# -----------------------------------------------------------------------------
+# - name: Push latest backup from localhost to remote host
+#   ansible.posix.synchronize:
+#     src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) }}'
+#     dest: '{{ backup_dir }}'
+#     mode: push
+#     private_key: '{{ ansible_ssh_private_key_file }}'
+#     checksum: true
+#     rsync_path: /usr/local/bin/rsync
+#     rsync_opts:
+#       - "--protect-args"
+#   delegate_to: localhost
+
+- name: Set variables
+  ansible.builtin.set_fact:
+    rsync_src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) }}'
+    rsync_dest: '{{ ansible_ssh_user }}@{{ inventory_hostname }}:{{ backup_dir }}'
+
+- name: Push latest backup from localhost to remote host  # noqa command-instead-of-module
+  ansible.builtin.command: >-
+    /usr/local/bin/rsync
+    --delay-updates
+    -F
+    --compress
+    --checksum
+    --archive
+    --rsh='/usr/bin/ssh -S none -i {{ ansible_ssh_private_key_file }} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+    --rsync-path=/usr/local/bin/rsync
+    --protect-args
+    --out-format='<<CHANGED>>%i %n%L'
+    '{{ rsync_src }}'
+    '{{ rsync_dest }}'
+  register: rsync_output
+  changed_when: rsync_output.stdout | length > 0
   delegate_to: localhost
