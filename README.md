@@ -2,6 +2,11 @@
 
 Syncs 1Password's backup files to multiple Macs. This applies to 1Password bought as standalone license, not membership.
 
+Tested on:
+- macOS Big Sur (Intel)
+- macOS Monterey (Intel)
+- macOS Ventura (Apple Silicon)
+
 # Getting Started (One Time Setup)
 
 **IMPORTANT: Repeat the following steps in each host.**
