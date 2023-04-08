@@ -5,7 +5,7 @@ Syncs 1Password's backup files to multiple Macs. This applies to 1Password bough
 # Getting Started (One Time Setup)
 
 **IMPORTANT: Repeat the following steps in each host.**
- 
+
 - Ensure SSH keypair exists (ex: `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`). If missing, run create one:
 
 ```shell
@@ -50,7 +50,7 @@ ssh user@supermario
 - Test SSH connection with Ansible.
 
 ```shell
-ansible all -i inventory.yml -m ping        
+ANSIBLE_PYTHON_INTERPRETER=$(which python3) ansible all -i inventory.yml -m ping
 ```
 
 # Syncing the Latest Backup File to all Remote Hosts
@@ -58,7 +58,7 @@ ansible all -i inventory.yml -m ping
 To push the latest backup file from the current machine to all remote hosts, run Ansible playbook.
 
 ```shell
-ansible-playbook main.yml        
+ANSIBLE_PYTHON_INTERPRETER=$(which python3) ansible-playbook main.yml
 ```
 
 - In each remote host:
