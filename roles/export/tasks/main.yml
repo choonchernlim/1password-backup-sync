@@ -35,10 +35,11 @@
     rsync_src: '{{ ( hostvars["localhost"].backup_dir + "/" + hostvars["localhost"].latest_backup_filename ) }}'
     rsync_dest: '{{ ansible_ssh_user }}@{{ inventory_hostname }}:{{ backup_dir }}'
     rsync_path: '{{ "/usr/local/bin/rsync" if ansible_architecture == "x86_64" else "/opt/homebrew/bin/rsync" }}'
+    localhost_rsync_path: '{{ "/usr/local/bin/rsync" if hostvars["localhost"].ansible_architecture == "x86_64" else "/opt/homebrew/bin/rsync" }}'
 
 - name: Push latest backup from localhost to remote host  # noqa command-instead-of-module
   ansible.builtin.command: >-
-    /usr/local/bin/rsync
+    '{{ localhost_rsync_path }}'
     --delay-updates
     -F
     --compress
