@@ -63,7 +63,7 @@ ANSIBLE_PYTHON_INTERPRETER=$(which python3) ansible all -i inventory.yml -m ping
 To push the latest backup file from the current machine to all remote hosts, run Ansible playbook.
 
 ```shell
-ANSIBLE_PYTHON_INTERPRETER=$(which python3) ansible-playbook main.yml
+./1password-backup-sync.sh
 ```
 
 - In each remote host:

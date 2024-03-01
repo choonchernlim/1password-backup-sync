@@ -25,3 +25,6 @@ Session.vim
 
 # 1password-backup-sync files
 inventory.yml
+
+logs/
+.venv/

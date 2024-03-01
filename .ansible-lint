@@ -1,0 +1,6 @@
+---
+skip_list:
+  - '401'  # Git checkouts must contain explicit version
+
+exclude_paths:
+  - .venv/

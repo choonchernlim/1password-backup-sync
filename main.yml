@@ -4,7 +4,7 @@
   roles:
     - backup_info
 
-- name: Push latest backup file from localhost to all remote hosts
+- name: Push latest backup file from localhost to all remote hosts  # noqa syntax-check[specific]
   # All remote hosts except localhost and its resolved hostname
   hosts: all:!localhost:!{{ hostvars['localhost'].ansible_hostname.lower() }}
   roles:

@@ -11,7 +11,7 @@ all:
     myshittycode:
       ansible_user: user
       ansible_ssh_user: user
-      ansible_python_interpreter: /usr/local/bin/python3 # Installed by Homebrew on macOS Intel
+      ansible_python_interpreter: /usr/local/bin/python3  # Installed by Homebrew on macOS Intel
     donkeykong:
       ansible_user: user
       ansible_ssh_user: user
@@ -19,4 +19,4 @@ all:
     supermario:
       ansible_user: user
       ansible_ssh_user: user
-      ansible_python_interpreter: /opt/homebrew/bin/python3 # Installed by Homebrew on Apple Silicon
+      ansible_python_interpreter: /opt/homebrew/bin/python3  # Installed by Homebrew on Apple Silicon
