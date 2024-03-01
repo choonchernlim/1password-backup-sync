@@ -76,4 +76,6 @@ To push the latest backup file from the current machine to all remote hosts, run
 
   - Select it and click **Restore** button.
 
+- To run the playbook in the future, run `1pass` in the terminal.
+
 ![Restore backup file](docs/1password-restore.png)

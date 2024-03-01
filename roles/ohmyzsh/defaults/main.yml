@@ -1,0 +1,2 @@
+---
+ohmyzsh_conf_dir: '{{ ansible_user_dir }}/.zshrc_conf'

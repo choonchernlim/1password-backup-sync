@@ -1,0 +1,12 @@
+---
+- name: Check if shell conf dir exists
+  ansible.builtin.stat:
+    path: '{{ ohmyzsh_conf_dir }}'
+  register: ohmyzsh_conf_dir_stat
+
+- name: Add 1password-backup-sync.sh to shell config dir
+  ansible.builtin.template:
+    src: 1password-backup-sync.sh.j2
+    dest: '{{ ohmyzsh_conf_dir }}/1password-backup-sync.sh'
+    mode: '0644'
+  when: ohmyzsh_conf_dir_stat.stat.exists

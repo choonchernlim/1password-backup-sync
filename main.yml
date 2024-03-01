@@ -2,6 +2,7 @@
 - name: Get 1Password info from localhost
   hosts: localhost
   roles:
+    - ohmyzsh
     - backup_info
 
 - name: Push latest backup file from localhost to all remote hosts  # noqa syntax-check[specific]
